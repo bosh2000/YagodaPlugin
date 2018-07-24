@@ -3,3 +3,6 @@
 ################################################################################
 
 /Resto.Front.Api.YagodaPlugin/obj/Debug/net461
+/Resto.Front.Api.YagodaPlugin/obj
+/Resto.Front.Api.YagodaPlugin/bin/Debug/net461
+/.vs/Resto.Front.Api.YagodaPlugin/v15/Server/sqlite3
