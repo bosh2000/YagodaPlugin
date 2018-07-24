@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace  Resto.Front.Api.YagodaPlug
+namespace Resto.Front.Api.YagodaPlugCore
 {
     /// <summary>
     /// Класс описывающий Json ответ сервера.

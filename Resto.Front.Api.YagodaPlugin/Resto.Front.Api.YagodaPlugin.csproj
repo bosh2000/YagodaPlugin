@@ -16,6 +16,6 @@
     <PackageReference Include="System.Reactive.Interfaces" Version="4.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CoreYagoda\CoreYagoda.csproj" />
+    <ProjectReference Include="..\CoreYagoda\YagodaPluginCore.csproj" />
   </ItemGroup>
 </Project>

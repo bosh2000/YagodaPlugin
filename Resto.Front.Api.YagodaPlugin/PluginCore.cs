@@ -5,6 +5,7 @@ using Resto.Front.Api.V6.UI;
 using System;
 using System.Collections.Generic;
 using System.Reactive.Disposables;
+using Resto.Front.Api.YagodaPlugCore;
 
 
 namespace Resto.Front.Api.YagodaPlugin
@@ -55,7 +56,8 @@ namespace Resto.Front.Api.YagodaPlugin
             //        : string.Format("Entered : '{0}'", inputResult),
             //    "SamplePlugin",
             //    TimeSpan.FromSeconds(15));
-            YagodaPlug.Entity entity;
+            
+            Entity entity;
 
             var yagodaCore = new CoreYagoda(logger);
             try

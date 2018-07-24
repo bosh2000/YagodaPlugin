@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace  Resto.Front.Api.YagodaPlug
+namespace Resto.Front.Api.YagodaPlugCore
 {
     /// <summary>
     /// Класс для формирования Json при проведении покупки.

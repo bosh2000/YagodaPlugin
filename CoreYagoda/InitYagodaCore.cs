@@ -4,7 +4,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using NLog;
 
-namespace Resto.Front.Api.YagodaPlug
+namespace Resto.Front.Api.YagodaPlugCore
 {
     /// <summary>
     /// Класс инициализации YagodaCore , чтение настроек подключения.

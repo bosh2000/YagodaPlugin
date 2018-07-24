@@ -5,10 +5,9 @@ using System.IO;
 using System.Net;
 using System.Text;
 
-
-namespace Resto.Front.Api.YagodaPlug
+namespace Resto.Front.Api.YagodaPlugCore
 {
-    internal class CoreYagoda : System.IDisposable
+    public class CoreYagoda : System.IDisposable
     {
         private WebClient webClient;
         private Logger logger;

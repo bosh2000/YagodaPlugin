@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resto.Front.Api.YagodaPlugin", "Resto.Front.Api.YagodaPlugin\Resto.Front.Api.YagodaPlugin.csproj", "{A2EF484F-F530-4D63-B1CB-ABA46E34933C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreYagoda", "CoreYagoda\CoreYagoda.csproj", "{A4AB12EB-A266-483B-A533-9FDD0DD0690B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YagodaPluginCore", "CoreYagoda\YagodaPluginCore.csproj", "{A4AB12EB-A266-483B-A533-9FDD0DD0690B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

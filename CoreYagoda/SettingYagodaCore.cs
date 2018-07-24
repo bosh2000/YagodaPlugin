@@ -1,4 +1,4 @@
-﻿namespace  Resto.Front.Api.YagodaPlug
+﻿namespace Resto.Front.Api.YagodaPlugCore
 {
     /// <summary>
     /// Класс с описанием настроек.

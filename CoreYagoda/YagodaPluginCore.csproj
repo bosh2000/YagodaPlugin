@@ -51,7 +51,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="CoreYagoda.cs" />
     <Compile Include="Data\Entity.cs" />
     <Compile Include="Data\Purchase.cs" />
