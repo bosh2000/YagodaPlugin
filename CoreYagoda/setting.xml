@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SettingYagodaCore>
+
+        <Url>http://dev.progrepublic.ru</Url>
+        <Login>vapeko</Login>
+        <Password>vapeko321</Password>
+        <Port>57773</Port>
+        <IdSale>GE</IdSale>
+        <PrefixDataBase>/csp/yagodapreprod</PrefixDataBase>
+
+</SettingYagodaCore>

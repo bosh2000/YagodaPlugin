@@ -6,6 +6,7 @@ using Resto.Front.Api.V6;
 using Resto.Front.Api.V6.Attributes;
 using Resto.Front.Api.V6.Attributes.JetBrains;
 using Resto.Front.Api.YagodaPlugin;
+using NLog;
 
 namespace Resto.Front.Api.YagodaPlug
 {
@@ -18,16 +19,18 @@ namespace Resto.Front.Api.YagodaPlug
     public sealed class YagodaPlug : IFrontPlugin
     {
         private readonly Stack<IDisposable> subscriptions = new Stack<IDisposable>();
+        private static Logger logger;
 
         public YagodaPlug()
         {
-            PluginContext.Log.Info("Initializing SamplePlugin");
+            logger = LogManager.GetCurrentClassLogger();
+            logger.Info("Initializing YagodaPlugin");
 
-            subscriptions.Push(new PluginCore());
+            subscriptions.Push(new PluginCore(logger));
 
 
 
-            PluginContext.Log.Info("SamplePlugin started");
+            PluginContext.Log.Info("SamplePlugin YagodaPlugin");
         }
 
         public void Dispose()
@@ -45,7 +48,7 @@ namespace Resto.Front.Api.YagodaPlug
                 }
             }
 
-            PluginContext.Log.Info("SamplePlugin stopped");
+            PluginContext.Log.Info("YagodaPlugin stopped");
         }
     }
 }

@@ -6,3 +6,6 @@
 /Resto.Front.Api.YagodaPlugin/obj
 /Resto.Front.Api.YagodaPlugin/bin/Debug/net461
 /.vs/Resto.Front.Api.YagodaPlugin/v15/Server/sqlite3
+/packages/NLog.4.5.7
+/packages/Newtonsoft.Json.11.0.2
+/CoreYagoda/obj

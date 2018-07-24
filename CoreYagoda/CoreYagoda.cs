@@ -6,7 +6,7 @@ using System.Net;
 using System.Text;
 
 
-namespace  Resto.Front.Api.YagodaPlug
+namespace Resto.Front.Api.YagodaPlug
 {
     internal class CoreYagoda : System.IDisposable
     {

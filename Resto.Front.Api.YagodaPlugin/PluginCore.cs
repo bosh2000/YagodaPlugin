@@ -6,16 +6,17 @@ using System;
 using System.Collections.Generic;
 using System.Reactive.Disposables;
 
+
 namespace Resto.Front.Api.YagodaPlugin
 {
     internal sealed class PluginCore : IDisposable
     {
         private readonly CompositeDisposable subscriptions;
-        private static Logger logger;
+        public Logger logger;
 
-        public PluginCore()
+        public PluginCore(Logger logger)
         {
-            logger = LogManager.GetCurrentClassLogger();
+            this.logger = logger;
             subscriptions = new CompositeDisposable
             {
              //   PluginContext.Integration.AddButton(new Button("SamplePlugin: Message Button",  (v, p, _) => MessageBox.Show("Message shown from Sample plugin."))),
@@ -56,7 +57,7 @@ namespace Resto.Front.Api.YagodaPlugin
             //    TimeSpan.FromSeconds(15));
             YagodaPlug.Entity entity;
 
-            var yagodaCore = new YagodaPlug.CoreYagoda(logger);
+            var yagodaCore = new CoreYagoda(logger);
             try
             {
                 logger.Info("Открываем подключение к базе...");
