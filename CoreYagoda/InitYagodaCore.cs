@@ -2,7 +2,7 @@
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
-using NLog;
+using Resto.Front.Api.V6;
 
 namespace Resto.Front.Api.YagodaPlugCore
 {
@@ -12,9 +12,9 @@ namespace Resto.Front.Api.YagodaPlugCore
     internal class InitYagodaCore
     {
         private SettingYagodaCore setting;
-        private Logger logger;
+        private ILog logger;
 
-        public InitYagodaCore(Logger logger)
+        public InitYagodaCore(ILog logger)
         {
             this.logger = logger;
         }
@@ -30,11 +30,12 @@ namespace Resto.Front.Api.YagodaPlugCore
             try
             {
                 XmlSerializer xmlSerializer = new XmlSerializer(typeof(SettingYagodaCore));
-                fileStream = new FileStream("setting.xml", FileMode.Open);
+                var pathToPlugin = Environment.CurrentDirectory+"\\Plugins\\Resto.Front.Api.YagodaPlugin\\";
+                fileStream = new FileStream(pathToPlugin+"setting.xml", FileMode.Open,FileAccess.Read);
                 setting = (SettingYagodaCore)xmlSerializer.Deserialize(fileStream);
             } catch (Exception exp)
             {
-                Console.WriteLine(exp.Message);
+                logger.Info("GetSetting-" + exp.Message);
             }
             finally {
                 if (fileStream != null) { fileStream.Close(); };

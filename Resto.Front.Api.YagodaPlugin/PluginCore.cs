@@ -1,27 +1,26 @@
-﻿using NLog;
-using Resto.Front.Api.V6;
+﻿using Resto.Front.Api.V6;
+using Resto.Front.Api.V6.Data.View;
 using Resto.Front.Api.V6.Extensions;
 using Resto.Front.Api.V6.UI;
+using Resto.Front.Api.YagodaPlugCore;
 using System;
 using System.Collections.Generic;
 using System.Reactive.Disposables;
-using Resto.Front.Api.YagodaPlugCore;
-
 
 namespace Resto.Front.Api.YagodaPlugin
 {
     internal sealed class PluginCore : IDisposable
     {
         private readonly CompositeDisposable subscriptions;
-        public Logger logger;
+        private ILog logger;
 
-        public PluginCore(Logger logger)
+        public PluginCore(ILog logger)
         {
             this.logger = logger;
             subscriptions = new CompositeDisposable
             {
              //   PluginContext.Integration.AddButton(new Button("SamplePlugin: Message Button",  (v, p, _) => MessageBox.Show("Message shown from Sample plugin."))),
-                PluginContext.Integration.AddButton("Yagoda'", ShowListPopup),
+                PluginContext.Integration.AddButton("Yagoda", ShowListPopup),
                // PluginContext.Integration.AddButton("SamplePlugin: Print 'Test Keyboard View'", ShowKeyboardPopup)
             };
         }
@@ -49,17 +48,21 @@ namespace Resto.Front.Api.YagodaPlugin
 
         private void ShowKeyboardPopup(IViewManager viewManager, IReceiptPrinter receiptPrinter, IProgressBar progressBar)
         {
-            var inputResult = viewManager.ShowKeyboard("Введите номер телефона:", isMultiline: false, capitalize: true);
-            //PluginContext.Operations.AddNotificationMessage(
-            //    inputResult == null
-            //        ? "Nothing"
-            //        : string.Format("Entered : '{0}'", inputResult),
-            //    "SamplePlugin",
-            //    TimeSpan.FromSeconds(15));
-            
-            Entity entity;
+            IPhoneInputResult inputResult = (IPhoneInputResult)viewManager.ShowExtendedNumericInputPopup("Введите номер телефона:", "Номер телефона",
+                new ExtendedInputSettings() { EnablePhone = true });
 
-            var yagodaCore = new CoreYagoda(logger);
+            logger.Info("После клавиатуры.");
+            Entity entity;
+            CoreYagoda yagodaCore = null;
+            try
+            {
+                yagodaCore = new CoreYagoda(PluginContext.Log);
+            }
+            catch (Exception exc)
+            {
+                logger.Error(exc.Message);
+            }
+
             try
             {
                 logger.Info("Открываем подключение к базе...");
@@ -74,10 +77,11 @@ namespace Resto.Front.Api.YagodaPlugin
                 logger.Info("Подключение к базе успешно.");
             }
 
-            entity = yagodaCore.GetInfo("79625020828");
+            if (yagodaCore == null) { logger.Error("yagodaCore=Null"); }
 
+            entity = yagodaCore.GetInfo(inputResult.PhoneNumber);
+            logger.Info("Entity - " + entity);
             string notificationString = string.Format("Имя:{0}, баланс:{1}", entity.profile.name, entity.info.balance);
-            notificationString = "11111";
             PluginContext.Operations.AddNotificationMessage(notificationString, "Yagoda", TimeSpan.FromSeconds(15));
             yagodaCore.Dispose();
         }

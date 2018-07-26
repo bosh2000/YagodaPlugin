@@ -19,11 +19,11 @@ namespace Resto.Front.Api.YagodaPlug
     public sealed class YagodaPlug : IFrontPlugin
     {
         private readonly Stack<IDisposable> subscriptions = new Stack<IDisposable>();
-        private static Logger logger;
+        private static ILog logger;
 
         public YagodaPlug()
         {
-            logger = LogManager.GetCurrentClassLogger();
+            logger = PluginContext.Log;
             logger.Info("Initializing YagodaPlugin");
 
             subscriptions.Push(new PluginCore(logger));

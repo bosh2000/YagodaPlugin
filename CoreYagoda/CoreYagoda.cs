@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using NLog;
+using Resto.Front.Api.V6;
 using System;
 using System.IO;
 using System.Net;
@@ -10,18 +10,20 @@ namespace Resto.Front.Api.YagodaPlugCore
     public class CoreYagoda : System.IDisposable
     {
         private WebClient webClient;
-        private Logger logger;
+        private ILog logger;
 
         ///// <summary>
         ///// Параметры подключения к серверу Ягоды.
         ///// </summary>
         private SettingYagodaCore setting;
 
-        public CoreYagoda(Logger logger)
+        public CoreYagoda(ILog logger)
         {
             this.logger = logger;
+            logger.Info("Инициализация InitYagodaCore");
             var init = new InitYagodaCore(logger);
             setting = init.GetSetting();
+            if (setting == null) { logger.Info("setting==null"); }
         }
 
         /// <summary>
