@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Resto.Front.Api.V6;
+using System;
 using System.IO;
-using System.Xml;
 using System.Xml.Serialization;
-using Resto.Front.Api.V6;
 
 namespace Resto.Front.Api.YagodaPlugCore
 {
@@ -25,19 +24,21 @@ namespace Resto.Front.Api.YagodaPlugCore
         /// <returns></returns>
         public SettingYagodaCore GetSetting()
         {
-            setting=new SettingYagodaCore();
-            FileStream fileStream=null;
+            setting = new SettingYagodaCore();
+            FileStream fileStream = null;
             try
             {
                 XmlSerializer xmlSerializer = new XmlSerializer(typeof(SettingYagodaCore));
-                var pathToPlugin = Environment.CurrentDirectory+"\\Plugins\\Resto.Front.Api.YagodaPlugin\\";
-                fileStream = new FileStream(pathToPlugin+"setting.xml", FileMode.Open,FileAccess.Read);
+                var pathToPlugin = Environment.CurrentDirectory + "\\Plugins\\Resto.Front.Api.YagodaPlugin\\";
+                fileStream = new FileStream(pathToPlugin + "setting.xml", FileMode.Open, FileAccess.Read);
                 setting = (SettingYagodaCore)xmlSerializer.Deserialize(fileStream);
-            } catch (Exception exp)
+            }
+            catch (Exception exp)
             {
                 logger.Info("GetSetting-" + exp.Message);
             }
-            finally {
+            finally
+            {
                 if (fileStream != null) { fileStream.Close(); };
             }
 

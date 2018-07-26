@@ -12,6 +12,10 @@ namespace Resto.Front.Api.YagodaPlugin
     internal sealed class PluginCore : IDisposable
     {
         private readonly CompositeDisposable subscriptions;
+
+        /// <summary>
+        /// Экземляр логера.
+        /// </summary>
         private ILog logger;
 
         public PluginCore(ILog logger)
@@ -19,12 +23,13 @@ namespace Resto.Front.Api.YagodaPlugin
             this.logger = logger;
             subscriptions = new CompositeDisposable
             {
-             //   PluginContext.Integration.AddButton(new Button("SamplePlugin: Message Button",  (v, p, _) => MessageBox.Show("Message shown from Sample plugin."))),
                 PluginContext.Integration.AddButton("Yagoda", ShowListPopup),
-               // PluginContext.Integration.AddButton("SamplePlugin: Print 'Test Keyboard View'", ShowKeyboardPopup)
             };
         }
 
+        /// <summary>
+        /// Реализация интерфейса IDisposable.
+        /// </summary>
         public void Dispose()
         {
             subscriptions.Dispose();
@@ -59,7 +64,7 @@ namespace Resto.Front.Api.YagodaPlugin
         }
 
         /// <summary>
-        /// 
+        /// Вывод количества бонусов и ФИО через внутренние сообщения.
         /// </summary>
         /// <param name="inputResult"></param>
         public void DisplayBonus(IPhoneInputResult inputResult)
