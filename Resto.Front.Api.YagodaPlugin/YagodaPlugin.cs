@@ -30,7 +30,7 @@ namespace Resto.Front.Api.YagodaPlug
 
 
 
-            PluginContext.Log.Info("SamplePlugin YagodaPlugin");
+            logger.Info("SamplePlugin YagodaPlugin");
         }
 
         public void Dispose()
@@ -44,11 +44,11 @@ namespace Resto.Front.Api.YagodaPlug
                 }
                 catch (RemotingException)
                 {
-                    // nothing to do with the lost connection
+                    logger.Info("Ошибка освобождения ресурсов");
                 }
             }
 
-            PluginContext.Log.Info("YagodaPlugin stopped");
+            logger.Info("YagodaPlugin stopped");
         }
     }
 }

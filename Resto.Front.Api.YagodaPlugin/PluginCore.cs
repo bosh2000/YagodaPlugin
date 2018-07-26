@@ -30,33 +30,46 @@ namespace Resto.Front.Api.YagodaPlugin
             subscriptions.Dispose();
         }
 
+        /// <summary>
+        /// Вывод меню плагина.
+        /// </summary>
+        /// <param name="viewManager"></param>
+        /// <param name="receiptPrinter"></param>
+        /// <param name="progressBar"></param>
         private void ShowListPopup(IViewManager viewManager, IReceiptPrinter receiptPrinter, IProgressBar progressBar)
         {
             var list = new List<string> { "Узнать баланс.", "Начислить бонусы.", "Списать бонусы" };
 
             var selectedItem = list[2];
             var inputResult = viewManager.ShowChooserPopup("Yagoda", list, i => i, selectedItem, ButtonWidth.Narrower);
-            //PluginContext.Operations.AddNotificationMessage(
-            //    inputResult == null
-            //        ? "Nothing"
-            //        : string.Format("Selected : {0}", inputResult),
-            //    "SamplePlugin",
-            //    TimeSpan.FromSeconds(15));
 
-            ShowKeyboardPopup(viewManager, receiptPrinter, progressBar);
+            DisplayBonus(ShowKeyboardPopup(viewManager, receiptPrinter, progressBar));
         }
 
-        private void ShowKeyboardPopup(IViewManager viewManager, IReceiptPrinter receiptPrinter, IProgressBar progressBar)
+        /// <summary>
+        /// Вывод экранной клавиатуры для ввода номера телефона.
+        /// </summary>
+        /// <param name="viewManager"></param>
+        /// <param name="receiptPrinter"></param>
+        /// <param name="progressBar"></param>
+        private IPhoneInputResult ShowKeyboardPopup(IViewManager viewManager, IReceiptPrinter receiptPrinter, IProgressBar progressBar)
         {
-            IPhoneInputResult inputResult = (IPhoneInputResult)viewManager.ShowExtendedNumericInputPopup("Введите номер телефона:", "Номер телефона",
+            return (IPhoneInputResult)viewManager.ShowExtendedNumericInputPopup("Введите номер телефона:", "Номер телефона",
                 new ExtendedInputSettings() { EnablePhone = true });
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inputResult"></param>
+        public void DisplayBonus(IPhoneInputResult inputResult)
+        {
             logger.Info("После клавиатуры.");
             Entity entity;
             CoreYagoda yagodaCore = null;
             try
             {
-                yagodaCore = new CoreYagoda(PluginContext.Log);
+                yagodaCore = new CoreYagoda(logger);
             }
             catch (Exception exc)
             {
@@ -81,7 +94,7 @@ namespace Resto.Front.Api.YagodaPlugin
 
             entity = yagodaCore.GetInfo(inputResult.PhoneNumber);
             logger.Info("Entity - " + entity);
-            string notificationString = string.Format("Имя:{0}, баланс:{1}", entity.profile.name, entity.info.balance);
+            var notificationString = string.Format("Имя:{0}, баланс:{1}", entity.profile.name, entity.info.balance);
             PluginContext.Operations.AddNotificationMessage(notificationString, "Yagoda", TimeSpan.FromSeconds(15));
             yagodaCore.Dispose();
         }
